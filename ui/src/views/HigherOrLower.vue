@@ -86,7 +86,7 @@ const randomYear = ref(0);
 const sessionId = ref('');
 
 // API base URL
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 async function startNewGame() {
   error.value = '';
