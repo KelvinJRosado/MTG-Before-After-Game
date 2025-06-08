@@ -122,6 +122,8 @@ async function startNewGame() {
 }
 
 async function fetchNextRound() {
+  console.log('Fetching next round...');
+
   if (!sessionId.value) {
     error.value = 'No active game session';
     return;
@@ -141,6 +143,8 @@ async function fetchNextRound() {
         sessionId: sessionId.value,
       }),
     });
+
+    console.log('Response:', JSON.stringify(response, null, 2));
 
     if (!response.ok) {
       const data = await response.json();
