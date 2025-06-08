@@ -121,7 +121,7 @@ async function startNewGame() {
   }
 }
 
-async function fetchRandomCard() {
+async function fetchNextRound() {
   if (!sessionId.value) {
     error.value = 'No active game session';
     return;
@@ -131,8 +131,8 @@ async function fetchRandomCard() {
   loading.value = true;
 
   try {
-    // Get the next round from the API
-    const response = await fetch(`${API_BASE_URL}/game/next-round`, {
+    // Get the next round card from the updated round API
+    const response = await fetch(`${API_BASE_URL}/game/round`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ async function makeGuess(guess: 'before' | 'after') {
 
     if (gameData.active) {
       // If the game is still active, get the next card
-      fetchRandomCard();
+      fetchNextRound();
     } else if (gameData.gameOver) {
       // If game is over, update card with full info that includes the release year
       card.value = gameData.card;
