@@ -6,6 +6,19 @@ This project is a Magic: The Gathering "Higher or Lower" card game built using [
 
 In this game, players are shown partial information about a Magic: The Gathering card and asked to guess whether the card was printed before or after a randomly selected year. Players earn points for correct guesses and the game ends when they make an incorrect guess.
 
+## Deployment
+
+### Vercel Deployment (UI Only)
+
+The UI part of this application is configured to be deployed on Vercel. To deploy:
+
+1. Connect your GitHub repository to Vercel
+2. Vercel will automatically detect the configuration in `vercel.json`
+3. The UI will be built using the `vercel-build` script defined in package.json
+4. The built files will be served from the `dist/ui` directory
+
+**Note:** The current deployment only includes the UI. The API needs to be deployed separately.
+
 ## Project Structure
 
 - `ui/`: Vue 3 frontend using Composition API
