@@ -4,7 +4,7 @@ import {
   handleOptions,
   createErrorResponse,
 } from '../utils/api-helpers.js';
-import { createGameSession } from './utils.js';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function GET(request: Request) {
   console.log('GET request received at /api/game/start');
@@ -19,8 +19,20 @@ export async function POST(request: Request) {
   console.log('POST request received at /api/game/start');
 
   try {
-    // Create a new game session
-    const gameSession = await createGameSession();
+    // Generate a new sessionId using UUID
+    const sessionId = uuidv4();
+
+    // Initialize the session with default values
+    const gameSession = {
+      sessionId: sessionId,
+      score: 0,
+      currentCard: null,
+      randomYear: 0,
+      active: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
     console.log('New game session created:', gameSession);
 
     // Insert the game session into the database
@@ -37,11 +49,11 @@ export async function POST(request: Request) {
       VALUES (
       ${gameSession.sessionId}, 
       ${gameSession.score}, 
-      ${gameSession.currentCard ? JSON.stringify(gameSession.currentCard) : null}, 
+      ${gameSession.currentCard}, 
       ${gameSession.randomYear}, 
       ${gameSession.active}, 
-      ${gameSession.createdAt}, 
-      ${gameSession.updatedAt}
+      ${gameSession.createdAt.toISOString()}, 
+      ${gameSession.updatedAt.toISOString()}
       )
       RETURNING *
     `;
