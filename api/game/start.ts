@@ -6,16 +6,7 @@ import {
 } from '../utils/api-helpers.js';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function GET(request: Request) {
-  console.log('GET request received at /api/game/start');
-
-  const data = await sql`SELECT * FROM public.games;`;
-  console.log('Data fetched from public.games:', data);
-
-  return createCorsResponse({ message: 'Hello from Vercel!', data });
-}
-
-export async function POST(request: Request) {
+export async function POST() {
   console.log('POST request received at /api/game/start');
 
   try {
@@ -32,8 +23,6 @@ export async function POST(request: Request) {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
-    console.log('New game session created:', gameSession);
 
     // Insert the game session into the database
     const result = await sql`

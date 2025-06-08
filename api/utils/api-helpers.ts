@@ -1,10 +1,18 @@
 import { neon } from '@neondatabase/serverless';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: No type definitions for scryfall-sdk
+import * as Scry from 'scryfall-sdk';
+
+// Initialize Scryfall SDK
+Scry.setAgent('kelvin-mtg-ui', '1.0.0');
+
+export const scry = Scry;
 
 // Initialize Neon SQL client with the database URL
 export const sql = neon(process.env.DATABASE_URL as string);
 
 // Reusable function to create response with CORS headers
-export function createCorsResponse(data: any, status: number = 200): Response {
+export function createCorsResponse(data: any, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
@@ -39,9 +47,6 @@ export async function parseRequestBody<T>(request: Request): Promise<T> {
 }
 
 // Error response helper
-export function createErrorResponse(
-  message: string,
-  status: number = 400,
-): Response {
+export function createErrorResponse(message: string, status = 400): Response {
   return createCorsResponse({ error: message }, status);
 }
