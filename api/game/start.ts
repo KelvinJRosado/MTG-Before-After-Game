@@ -1,4 +1,8 @@
-import { sql, createCorsResponse, handleOptions } from '../utils/api-helpers';
+import {
+  sql,
+  createCorsResponse,
+  handleOptions,
+} from '../utils/api-helpers.js';
 
 export async function GET(request: Request) {
   console.log('GET request received at /api/game/start');
