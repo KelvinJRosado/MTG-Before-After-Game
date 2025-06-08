@@ -144,7 +144,7 @@ async function fetchNextRound() {
       }),
     });
 
-    console.log('Response:', JSON.stringify(response, null, 2));
+    console.log('Response status:', response.status);
 
     if (!response.ok) {
       const data = await response.json();
@@ -199,6 +199,7 @@ async function makeGuess(guess: 'before' | 'after') {
     }
 
     const gameData = await response.json();
+    console.log('Guess response:', gameData);
 
     // Update game state from API response
     score.value = gameData.score;
@@ -211,7 +212,7 @@ async function makeGuess(guess: 'before' | 'after') {
 
     if (gameData.active) {
       // If the game is still active, get the next card
-      fetchNextRound();
+      await fetchNextRound();
     } else if (gameData.gameOver) {
       // If game is over, update card with full info that includes the release year
       card.value = gameData.card;
