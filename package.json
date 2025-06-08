@@ -47,10 +47,10 @@
     "vue-tsc": "2.2.10"
   },
   "dependencies": {
+    "@neondatabase/serverless": "1.0.1",
     "scryfall-sdk": "5.0.3",
     "uuid": "9.0.1",
     "@types/uuid": "9.0.8",
-    "@vercel/blob": "1.1.1",
     "vue": "3.5.16",
     "vue-router": "4.5.1"
   }

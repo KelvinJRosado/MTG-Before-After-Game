@@ -1,4 +1,6 @@
-import { put } from '@vercel/blob';
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL as string);
 
 export async function GET(request: Request) {
   console.log('GET request received at /api/game/start');
@@ -29,11 +31,9 @@ export async function POST(request: Request) {
     },
   });
 
-  const { url } = await put('articles/blob.txt', 'Hello World!', {
-    access: 'public',
-  });
+  const data = await sql`SELECT * FROM posts;`;
 
-  console.log('Blob URL:', url);
+  console.log('Data fetched from database:', data);
 
   return res;
 }
