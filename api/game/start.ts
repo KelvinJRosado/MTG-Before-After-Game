@@ -1,39 +1,19 @@
-import { neon } from '@neondatabase/serverless';
-
-const sql = neon(process.env.DATABASE_URL as string);
+import { sql, createCorsResponse, handleOptions } from '../utils/api-helpers';
 
 export async function GET(request: Request) {
   console.log('GET request received at /api/game/start');
-
-  // Create new response object with CORS headers setup
-  const res = new Response('Hello from Vercel!', {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Content-Type': 'application/json',
-    },
-  });
-
-  return res;
+  return createCorsResponse({ message: 'Hello from Vercel!' });
 }
 
 export async function POST(request: Request) {
   console.log('POST request received at /api/game/start');
 
-  // Create new response object with CORS headers setup
-  const res = new Response('Hello from Vercel!', {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Content-Type': 'application/json',
-    },
-  });
-
   const data = await sql`SELECT * FROM public.games;`;
-
   console.log('Data fetched from public.games:', data);
 
-  return res;
+  return createCorsResponse({ message: 'Hello from Vercel!', data });
+}
+
+export async function OPTIONS() {
+  return handleOptions();
 }
