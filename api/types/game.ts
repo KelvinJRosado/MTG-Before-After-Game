@@ -1,7 +1,6 @@
-
 // Game session types for Higher-or-Lower game
 export interface GameSession {
-  id: string;
+  sessionId: string;
   score: number;
   currentCard: CardInfo | null;
   randomYear: number;

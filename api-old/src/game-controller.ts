@@ -55,25 +55,6 @@ function prepareSafeCardInfo(card: CardInfo): Partial<CardInfo> {
   };
 }
 
-// Create a new game session
-export async function createGameSession(): Promise<GameResponse> {
-  const sessionId = uuidv4();
-
-  // Initialize the session with score 0 and null card
-  const session: GameSession = {
-    id: sessionId,
-    score: 0,
-    currentCard: null,
-    randomYear: 0,
-    active: true,
-  };
-
-  gameSessions.set(sessionId, session);
-
-  // Start the first round for this session
-  return await startNewRound(sessionId);
-}
-
 // Start a new round for an existing game session
 export async function startNewRound(sessionId: string): Promise<GameResponse> {
   const session = gameSessions.get(sessionId);
@@ -134,7 +115,7 @@ export async function startNewRound(sessionId: string): Promise<GameResponse> {
 // Process a guess
 export function processGuess(
   sessionId: string,
-  guess: 'before' | 'after'
+  guess: 'before' | 'after',
 ): GameResponse {
   const session = gameSessions.get(sessionId);
 
