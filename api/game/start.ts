@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     // Insert the game session into the database
     const result = await sql`
-      INSERT INTO public.games (
+      INSERT INTO games (
       score, 
       currentCard, 
       randomYear, 
