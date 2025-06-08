@@ -31,11 +31,9 @@ export async function POST(request: Request) {
     },
   });
 
-  const data1 = await sql`SELECT * FROM games;`;
-  const data2 = await sql`SELECT * FROM public.games;`;
+  const data = await sql`SELECT * FROM public.games;`;
 
-  console.log('Data fetched from games:', data1);
-  console.log('Data fetched from public.games:', data2);
+  console.log('Data fetched from public.games:', data);
 
   return res;
 }
