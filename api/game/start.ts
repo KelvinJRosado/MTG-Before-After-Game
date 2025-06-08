@@ -1,4 +1,6 @@
-export function GET(request: Request) {
+import { put } from '@vercel/blob';
+
+export async function GET(request: Request) {
   console.log('GET request received at /api/game/start');
 
   // Create new response object with CORS headers setup
@@ -14,7 +16,7 @@ export function GET(request: Request) {
   return res;
 }
 
-export function POST(request: Request) {
+export async function POST(request: Request) {
   console.log('POST request received at /api/game/start');
 
   // Create new response object with CORS headers setup
@@ -26,6 +28,12 @@ export function POST(request: Request) {
       'Content-Type': 'application/json',
     },
   });
+
+  const { url } = await put('articles/blob.txt', 'Hello World!', {
+    access: 'public',
+  });
+
+  console.log('Blob URL:', url);
 
   return res;
 }
