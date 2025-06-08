@@ -1,14 +1,11 @@
 {
   "name": "mtg-vue",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "clean-install": "rm -rf node_modules && rm package-lock.json && npm install",
-    "build:api": "nx run-many --target=build --projects=api",
     "build:ui": "nx run-many --target=build --projects=ui",
-    "build:all": "nx run-many --target=build --parallel --all",
-    "serve:api": "nx run-many --target=serve --projects=api",
     "serve:ui": "nx run-many --target=serve --projects=ui",
-    "serve:all": "nx run-many --target=serve --parallel --all",
     "lint": "nx run-many --target=lint --all",
     "clean": "nx reset"
   },

@@ -38,7 +38,7 @@ const server = createServer(async (req, res) => {
     if (!name) {
       res.writeHead(400);
       res.end(
-        JSON.stringify({ error: 'Missing required query parameter: name' })
+        JSON.stringify({ error: 'Missing required query parameter: name' }),
       );
       return;
     }
