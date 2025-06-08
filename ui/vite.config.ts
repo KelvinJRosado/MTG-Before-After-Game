@@ -24,8 +24,10 @@ export default defineConfig(() => ({
     outDir: '../dist/ui',
     emptyOutDir: true,
     reportCompressedSize: true,
-    commonjsOptions: {
-      transformMixedEsModules: true,
+    // Use native ESM output
+    target: 'es2022',
+    modulePreload: {
+      polyfill: false,
     },
   },
 }));
