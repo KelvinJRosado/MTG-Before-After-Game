@@ -1,0 +1,36 @@
+{
+  "name": "ui",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "ui/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/ui",
+        "configFile": "ui/vite.config.ts"
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "configFile": "ui/vite.config.ts",
+        "buildTarget": "ui:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "configFile": "ui/vite.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["ui/src/**/*.ts", "ui/src/**/*.vue"]
+      }
+    }
+  }
+}
