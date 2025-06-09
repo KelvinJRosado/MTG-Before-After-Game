@@ -105,14 +105,16 @@ async function startNewGame() {
     }
 
     const gameData = await response.json();
+    console.log('Start game response:', gameData);
 
     // Set game state from API response
     sessionId.value = gameData.sessionId;
     score.value = gameData.score;
-    card.value = gameData.card;
-    randomYear.value = gameData.randomYear;
     gameActive.value = gameData.active;
     gameOver.value = gameData.gameOver || false;
+
+    // After starting a new game, fetch the first card
+    await fetchNextRound();
   } catch (e) {
     console.error('Network error:', e);
     error.value = 'Network error. Is the API running?';
