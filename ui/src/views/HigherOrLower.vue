@@ -115,6 +115,11 @@ async function startNewGame() {
 
     // After starting a new game, fetch the first card
     await fetchNextRound();
+    
+    if (!card.value) {
+      error.value = 'Unable to load the first card. Please try again.';
+      gameActive.value = false;
+    }
   } catch (e) {
     console.error('Network error:', e);
     error.value = 'Network error. Is the API running?';
@@ -146,7 +151,7 @@ async function fetchNextRound() {
       }),
     });
 
-    console.log('Response status:', response.status);
+    console.log('Round API response status:', response.status);
 
     if (!response.ok) {
       const data = await response.json();
@@ -155,6 +160,7 @@ async function fetchNextRound() {
     }
 
     const gameData = await response.json();
+    console.log('Round API response data:', gameData);
 
     // Update game state from API response
     score.value = gameData.score;
@@ -166,6 +172,10 @@ async function fetchNextRound() {
     if (gameData.message) {
       console.log(gameData.message);
     }
+    
+    if (!card.value || !randomYear.value) {
+      console.warn('Warning: Card or random year data is missing');
+    }
   } catch (e) {
     console.error('Network error:', e);
     error.value = 'Network error. Is the API running?';
@@ -176,6 +186,7 @@ async function fetchNextRound() {
 
 async function makeGuess(guess: 'before' | 'after') {
   if (!sessionId.value || !gameActive.value) {
+    console.log('Cannot make guess: No active session or game not active');
     return;
   }
 
@@ -230,6 +241,7 @@ async function makeGuess(guess: 'before' | 'after') {
 // Function to manually end the game
 async function endGame() {
   if (!sessionId.value) {
+    console.log('Cannot end game: No active session');
     return;
   }
 
@@ -254,6 +266,7 @@ async function endGame() {
     }
 
     const gameData = await response.json();
+    console.log('End game response:', gameData);
 
     // Update game state from API response
     score.value = gameData.score;
@@ -263,6 +276,8 @@ async function endGame() {
     // Update card with full info that includes the release year
     if (gameData.card) {
       card.value = gameData.card;
+    } else {
+      console.warn('Warning: End game response did not include card data');
     }
   } catch (e) {
     console.error('Network error:', e);
